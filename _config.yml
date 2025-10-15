@@ -1,0 +1,32 @@
+# Configuração do GitHub Pages para Jekyll
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Configurações do site
+title: "Manual de POPs - WMS E-SHIP"
+description: "Procedimentos Operacionais Padrão para o sistema WMS E-SHIP da Eletrica Ativa"
+baseurl: ""
+url: "https://seuusuario.github.io"
+
+# Configurações de build
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Incluir arquivos
+include:
+  - assets/
+  - docs/
+  - templates/
+
+# Excluir arquivos do build
+exclude:
+  - README.md
+  - atualizador_pops.py
+  - "*.py"
+  - .git/
+  - .github/
+  - node_modules/
+  - vendor/

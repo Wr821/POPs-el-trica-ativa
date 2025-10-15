@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POPs WMS E-SHIP - Eletrica Ativa</title>
+    <meta name="description" content="Manual interativo de Procedimentos Operacionais Padrão para o sistema WMS E-SHIP da Eletrica Ativa. Inclui recebimento, armazenagem, separação, conferência e movimentação.">
+    <meta name="keywords" content="POPs, WMS, E-SHIP, Eletrica Ativa, procedimentos, operacional, manual, armazém">
+    <meta name="author" content="Eletrica Ativa">
+    <meta property="og:title" content="Manual de POPs - WMS E-SHIP">
+    <meta property="og:description" content="Manual interativo de Procedimentos Operacionais Padrão">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0530eb 0%, #8206fe 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            border: 2px solid transparent;
+        }
+        
+        .nav-link span:first-child {
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+        }
+        
+        .nav-link:hover {
+            color: #2196F3;
+            background: rgba(33, 150, 243, 0.1);
+            border-color: rgba(33, 150, 243, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            color: white;
+            background: linear-gradient(135deg, #2196F3, #21CBF3);
+            border-color: #2196F3;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 70px auto 0;
+            padding: 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f0f0f0;
+        }
+        
+        .section-icon {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-title {
+            font-size: 2.2em;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .processo-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 5px solid #2196F3;
+            transition: all 0.3s ease;
+        }
+        
+        .processo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .processo-title {
+            font-size: 1.5em;
+            color: #2196F3;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .processo-title::before {
+            content: "📋";
+            font-size: 1.2em;
+        }
+        
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step-item {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            position: relative;
+            padding-left: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .step-item:hover {
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+        
+        .step-item::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .step-text {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .sub-step {
+            margin-top: 10px;
+            padding-left: 20px;
+            font-size: 0.95em;
+            color: #666;
+            border-left: 2px solid #e0e0e0;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #fffacd 0%, #fff3cd 100%);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        
+        .highlight::before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+        
+        .highlight:has(strong:first-child) {
+            background: linear-gradient(120deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid #2196F3;
+        }
+        
+        .highlight:has(strong:first-child)::before {
+            content: "";
+        }
+        
+        .important-info {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+        }
+        
+        .important-info .highlight {
+            margin: 10px 0;
+            border-left: 4px solid #ff5722;
+            background: linear-gradient(120deg, #ffebee 0%, #ffcdd2 100%);
+        }
+        
+        .origin-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff5722, #ff7043);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 8px;
+            box-shadow: 0 2px 4px rgba(255, 87, 34, 0.3);
+        }
+        
+        .operation-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .operation-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid #2196F3;
+            transition: all 0.3s ease;
+        }
+        
+        .operation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+        
+        .operation-title {
+            font-size: 1.2em;
+            color: #2196F3;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .operation-desc {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+        
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2em;
+        }
+        
+        .overview-section {
+            display: block;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: #666;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 5px;
+            }
+            
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                gap: 5px;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                justify-content: flex-start;
+                width: 100%;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-size: 1em;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .operation-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🏢 Eletrica Ativa WMS</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link active" onclick="showSection('overview')">
+                    <span>📊</span>
+                    <span>Visão Geral</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('recebimento')">
+                    <span>📦</span>
+                    <span>Recebimento</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('armazenagem')">
+                    <span>🏪</span>
+                    <span>Armazenagem</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('separacao')">
+                    <span>📋</span>
+                    <span>Separação</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('conferencia')">
+                    <span>✅</span>
+                    <span>Conferência</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('movimentacao')">
+                    <span>🔄</span>
+                    <span>Movimentação</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('ajustes')">
+                    <span>⚙️</span>
+                    <span>Ajustes</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('base-conhecimento')">
+                    <span>📚</span>
+                    <span>Base de Conhecimento</span>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>📚 POPs WMS E-SHIP</h1>
+            <p>Procedimentos Operacionais Padrão para o Sistema de Gerenciamento de Armazém</p>
+        </div>
+
+        <!-- Visão Geral -->
+        <section class="overview-section" id="overview">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2 class="section-title">Visão Geral do Sistema</h2>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="🔍 Buscar procedimentos..." onkeyup="searchContent(this.value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Módulos Principais</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Modelos de Recebimento</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Tipos de Movimentação</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Integração WMS</div>
+                </div>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🎯 Objetivo dos POPs</h3>
+                <p>Este manual contém todos os procedimentos operacionais padrão para o sistema WMS E-SHIP da Eletrica Ativa, garantindo:</p>
+                <ul style="margin: 15px 0; padding-left: 30px;">
+                    <li>Padronização dos processos operacionais</li>
+                    <li>Redução de erros e retrabalho</li>
+                    <li>Maior eficiência no atendimento</li>
+                    <li>Conformidade com as melhores práticas</li>
+                </ul>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🗂️ Módulos do Sistema</h3>
+                <div class="operation-types">
+                    <div class="operation-card" onclick="showSection('recebimento')">
+                        <h3 class="operation-title">📦 Recebimento</h3>
+                        <p class="operation-desc">Processos de entrada de mercadorias - Matriz e Filial</p>
+                    </div>
+                    <div class="operation-card" onclick="showSection('armazenagem')">
+                        <h3 class="operation-title">🏪 Armazenagem</h3>
+                        <p class="operation-desc">Gestão de requisições e operações de estoque</p>
+                    </div>
+                    <div class="operation-card" onclick="showSection('separacao')">
+                        <h3 class="operation-title">📋 Separação</h3>
+                        <p class="operation-desc">Picking e preparação de pedidos</p>
+                    </div>
+                    <div class="operation-card" onclick="showSection('conferencia')">
+                        <h3 class="operation-title">✅ Conferência</h3>
+                        <p class="operation-desc">Checkout e validação de volumes</p>
+                    </div>
+                    <div class="operation-card" onclick="showSection('movimentacao')">
+                        <h3 class="operation-title">🔄 Movimentação</h3>
+                        <p class="operation-desc">Transferências entre endereços</p>
+                    </div>
+                    <div class="operation-card" onclick="showSection('ajustes')">
+                        <h3 class="operation-title">⚙️ Ajustes</h3>
+                        <p class="operation-desc">Batman - Correções de estoque</p>
+                    </div>
+                    <div class="operation-card" onclick="showSection('base-conhecimento')">
+                        <h3 class="operation-title">📚 Base de Conhecimento</h3>
+                        <p class="operation-desc">Configurações e estrutura do armazém</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="processo-card important-info">
+                <h3 class="processo-title">📋 Informações Importantes</h3>
+                
+                <div class="highlight">
+                    <strong>⚠️ OBS1:</strong> <span class="origin-tag">📋 SEPARAÇÃO</span> As ordens de serviços com itens faltantes ou separação parcial irão gerar uma nova requisição quando os itens faltantes constarem no recebimento. Ou seja, aguardamos a entrega do fornecedor para continuar a separação, ou entregamos o pedido do cliente com as quantidades de cada item separado fechando a ordem de serviço (não gera nova requisição para a quantidade de itens faltantes ou separados parcialmente).
+                </div>
+
+                <div class="highlight">
+                    <strong>⚠️ OBS2:</strong> <span class="origin-tag">📋 SEPARAÇÃO</span> Para gerar uma requisição conforme os itens vão dando entrada no recebimento, a ordem de serviço deve estar em aberto - isso irá acontecer de forma automática.
+                </div>
+
+                <div class="highlight">
+                    <strong>🔍 Sempre Verificar:</strong> <span class="origin-tag">✅ CONFERÊNCIA</span> Analisar a situação e erros de cada ordem de serviço, garantir que esteja 100% separada e conferida para finalização.
+                </div>
+
+                <div class="highlight">
+                    <strong>📋 RC com Múltiplos Itens:</strong> <span class="origin-tag">🏪 ARMAZENAGEM</span> RC com mais de um item deve ser armazenada item a item.
+                </div>
+
+                <div class="highlight">
+                    <strong>🏢 Filial - Tabela de Conversão:</strong> <span class="origin-tag">📦 RECEBIMENTO</span> No modelo filial, sempre analisar a tabela de conversão após inserir o XML.
+                </div>
+
+                <div class="highlight">
+                    <strong>🎯 Separação Discreta:</strong> <span class="origin-tag">📋 SEPARAÇÃO</span> Das 5 opções de separação disponíveis, sempre escolher a segunda opção: separação discreta.
+                </div>
+            </div>
+        </section>
+
+        <!-- Recebimento -->
+        <section class="content-section" id="recebimento">
+            <div class="section-header">
+                <span class="section-icon">📦</span>
+                <h2 class="section-title">Recebimento de Mercadorias</h2>
+            </div>
+
+            <div class="operation-types">
+                <div class="operation-card">
+                    <h3 class="operation-title">🏭 Modelo 1 - Matriz</h3>
+                    <p class="operation-desc">Processo simplificado sem previsão de fornecedores, focado em recebimento imediato e integração rápida.</p>
+                </div>
+                <div class="operation-card">
+                    <h3 class="operation-title">🏢 Modelo 2 - Filial</h3>
+                    <p class="operation-desc">Processo com análise de XML e tabela de conversão, seguindo todos os passos de validação.</p>
+                </div>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🏭 Recebimento Modelo 1 - Matriz</h3>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Sem Previsão de Fornecedores</strong><br>
+                            Não temos previsão de fornecedores para este modelo.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Início do Recebimento</strong><br>
+                            Para darmos entrada no WMS, iniciamos um <em>recebimento imediato</em>.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Integração de Volumes</strong><br>
+                            Volumes são integrados em uma RC (etiquetas onde posso colocar mais de um item).
+                            <div class="sub-step">
+                                Para paletes fechados: faço a impressão da quantidade de paletes como volumes
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Apontamento</strong><br>
+                            Para finalizar a RC fazemos um apontamento (confirmação de quantidades por itens e descrição de itens).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Habilitação de Requisições</strong><br>
+                            Para finalizar a RC, habilitamos as requisições (definição de local de destino de cada segmento).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Finalização</strong><br>
+                            Feito todo o processo, todas as RC's estão aptas a endereçamento.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🏢 Recebimento Modelo 2 - Filial</h3>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Entrada de XML</strong><br>
+                            Informamos o XML na entrada da nota fiscal (sem pular passos).
+                            <div class="sub-step">
+                                <strong>1.1 -</strong> Sempre analisar a tabela de conversão
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Início do Recebimento</strong><br>
+                            Para darmos entrada no WMS, iniciamos um <em>recebimento imediato</em>.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Integração de Volumes</strong><br>
+                            Volumes são integrados em uma RC (etiquetas onde posso colocar mais de um item).
+                            <div class="sub-step">
+                                Para paletes fechados: faço a impressão da quantidade de paletes como volumes
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Apontamento</strong><br>
+                            Para finalizar a RC fazemos um apontamento (confirmação de quantidades por itens e descrição de itens).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Habilitação de Requisições</strong><br>
+                            Para finalizar a RC, habilitamos as requisições (definição de local de destino de cada segmento).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Finalização</strong><br>
+                            Feito todo o processo, todas as RC's estão aptas a endereçamento.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Armazenagem -->
+        <section class="content-section" id="armazenagem">
+            <div class="section-header">
+                <span class="section-icon">🏪</span>
+                <h2 class="section-title">Armazenagem</h2>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">📋 Guia Tratar/Requisição</h3>
+                <p>Nesta aba temos 3 opções principais de operação:</p>
+                
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">📦 Armazenagem</h3>
+                        <p class="operation-desc">Armazenar a RC conferida no local apropriado do estoque.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">↩️ Devolução Ordem</h3>
+                        <p class="operation-desc">Acontece quando retornamos algum item dentro de uma ordem de serviço.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🔄 Retorno UA Agrupada</h3>
+                        <p class="operation-desc">Acontece quando retornamos algum item dentro da RC.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🎯 Processo de Armazenagem</h3>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Navegação</strong><br>
+                            Navegar na opção tratar → armazenar recebimento → localizar a RC.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Opções de Armazenagem</strong><br>
+                            Vamos ter os seguintes campos:
+                            <div class="sub-step">
+                                • <strong>Armazenar itens parcial:</strong> armazena uma quantidade do produto em um endereço e o restante em outro endereço<br>
+                                • <strong>Armazenar item com saldo total:</strong> permanece todo o saldo do item no endereço de destino<br>
+                                • <strong>Armazenar todos os itens:</strong> armazena todos os itens com o saldo total no endereço de origem (⚠️ atenção nessa opção)
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Preenchimento de Informações</strong><br>
+                            Ao escolher a opção de armazenagem, preencher:
+                            <div class="sub-step">
+                                • <strong>Posição de origem:</strong> bipar o QR CODE da etiqueta<br>
+                                • <strong>Código do item:</strong> se tiver mais de um item na RC, replicar para todos os itens<br>
+                                • <strong>Posição de destino:</strong> endereço onde vamos alocar o produto<br>
+                                • <strong>Quantidade:</strong> quantidade do item que vamos alocar (sugestão: armazenar todo o saldo do item em um endereço)
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Separação -->
+        <section class="content-section" id="separacao">
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <h2 class="section-title">Separação</h2>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🎯 Processo de Separação Discreta</h3>
+                <p>Em operação, clicar em separação. Temos 5 opções de separação - <strong>escolher a segunda opção: separação discreta</strong>.</p>
+                
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Configuração de Impressão</strong><br>
+                            Configurar a impressão para a impressora mais próxima (definir impressão por setor).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Impressão do Movimentador</strong><br>
+                            Fazer a impressão do movimentador (etiqueta VL).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Informar Movimentador</strong><br>
+                            Informar o movimentador no campo (VL) no campo movimentador.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Bipar Posição</strong><br>
+                            Bipar a posição informada pelo coletor para a coleta do picking.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Informar Código do Item</strong><br>
+                            Informar o código do item a ser separado.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Informar Quantidade</strong><br>
+                            Informar a quantidade a ser separada.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Tratamento de Falta de Estoque</strong><br>
+                            Se caso não tiver a quantidade pedida na separação:
+                            <div class="sub-step">
+                                • Saltar o item e procurar a mesa de operação (separador)<br>
+                                • Mesa de operação: listar a ordem de serviço, retornar<br>
+                                • Procurar o produto e estornar<br>
+                                • Fazer o ajuste da posição para o saldo correto<br>
+                                • Esperar o sistema atualizar novamente<br>
+                                • Separador sair e entrar na ordem - item volta com saldo corrigido
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Saída Manual (Sem Saldo Físico)</strong><br>
+                            Se não tiver saldo físico:
+                            <div class="sub-step">
+                                • Ir em produtos, filtrar o código do produto<br>
+                                • Adicionar uma saída manual<br>
+                                • Escolher o tipo de saída (avaria ou padrão CD)<br>
+                                • Informar a quantidade da saída<br>
+                                • Clicar em adicionar
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="highlight">
+                    <strong>Importante:</strong> Replicar este processo para todos os itens da ordem de serviço.
+                </div>
+            </div>
+        </section>
+
+        <!-- Conferência -->
+        <section class="content-section" id="conferencia">
+            <div class="section-header">
+                <span class="section-icon">✅</span>
+                <h2 class="section-title">Checkout/Conferência</h2>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🔍 Processo de Conferência</h3>
+                <p>Para a conferência, vamos analisar a quantidade de volumes que irá gerar (fazer impressão de etiquetas de volumes baseado na separação).</p>
+                
+                <div class="highlight">
+                    Se a conferência não tiver a necessidade de fazer impressão, conferir com a VL de origem.
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Bipar Movimentador</strong><br>
+                            Bipar o movimentador (VL) para iniciar o processo.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Processo com Novos Volumes</strong><br>
+                            Se tiver a necessidade de mais volumes:
+                            <div class="sub-step">
+                                • Bipar o volume de origem<br>
+                                • Bipar o novo volume impresso<br>
+                                • Bipar o item que vamos inserir no novo volume<br>
+                                • Inserir a quantidade<br>
+                                • Repetir se tiver a necessidade de mais volumes
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Processo sem Novos Volumes</strong><br>
+                            Se não tivermos a necessidade de um novo volume:
+                            <div class="sub-step">
+                                • Bipar o movimentador (VL)<br>
+                                • Bipar o volume de origem<br>
+                                • Inserir ou bipar o código do produto<br>
+                                • Inserir a quantidade
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Finalização</strong><br>
+                            Feito ambos os processos, clicar em <strong>finalizar</strong>.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Movimentação -->
+        <section class="content-section" id="movimentacao">
+            <div class="section-header">
+                <span class="section-icon">🔄</span>
+                <h2 class="section-title">Movimentações de Produtos por Endereços</h2>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🎯 Tipos de Movimentação</h3>
+                <p>Ao acessar os favoritos, temos várias opções. A opção <strong>movimentar/endereçar</strong> é onde fazemos transferências de produtos de um endereço para outro.</p>
+
+                <div class="highlight">
+                    <strong>Primeiro passo:</strong> Identificar qual tipo de movimentação vamos fazer:
+                </div>
+
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">📦 Saldo Parcial</h3>
+                        <p class="operation-desc">Movimentar item com saldo parcial - conseguimos transferir a quantidade de um item parcialmente entre endereços.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">📋 Saldo Total</h3>
+                        <p class="operation-desc">Movimentar itens com saldo total - movimenta a quantidade total de cada item entre endereços.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🏪 Todos os Itens</h3>
+                        <p class="operation-desc">Movimentar todos os itens - movimenta o saldo total de todos os itens que constam no endereço.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🔄 Procedimento Geral</h3>
+                <p>Para todas as operações devemos seguir estes passos:</p>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Posição de Origem</strong><br>
+                            Indicar a posição de origem (onde o item está armazenado).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Quantidades (se parcial)</strong><br>
+                            Informar as quantidades se a movimentação for parcial.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Posição de Destino</strong><br>
+                            Informar a posição de destino (novo endereço do item).
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Ajustes -->
+        <section class="content-section" id="ajustes">
+            <div class="section-header">
+                <span class="section-icon">⚙️</span>
+                <h2 class="section-title">Ajustar Endereço (Batman)</h2>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🛠️ Processo de Ajuste de Endereço</h3>
+                
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Bipar Endereço</strong><br>
+                            Bipar o endereço que será ajustado.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Informar Item</strong><br>
+                            Bipar ou informar o código do item.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Informar Quantidade</strong><br>
+                            Informar a quantidade a ser processada.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Selecionar Operação</strong><br>
+                            Irão aparecer três operações disponíveis:
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">➕ Adicionar</h3>
+                        <p class="operation-desc">Adiciona a quantidade informada ao estoque do endereço.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🔧 Ajustar Todo Item</h3>
+                        <p class="operation-desc">Ajustar todo item com a quantidade lançada (substitui o valor atual pelo informado).</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">➖ Debitar</h3>
+                        <p class="operation-desc">Opção para retirada de quantidades totais ou parciais de cada item por endereço (ajustes).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Base de Conhecimento -->
+        <section class="content-section" id="base-conhecimento">
+            <div class="section-header">
+                <span class="section-icon">📚</span>
+                <h2 class="section-title">Base de Conhecimento</h2>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🏗️ Configuração da Estrutura do Armazém</h3>
+                <p>Para cadastrar ou alterar qualquer estrutura do armazém, navegar em <strong>armazém → listar armazém</strong>.</p>
+                
+                <div class="highlight">
+                    Nesta seção você terá acesso a todas as opções de configurações relacionadas à estrutura do armazém.
+                </div>
+
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">✏️ Editar Armazém</h3>
+                        <p class="operation-desc">Configurações gerais e parâmetros do armazém.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🚚 Listar Doca</h3>
+                        <p class="operation-desc">Gerenciamento das docas de recebimento e expedição.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🌡️ Mapa de Calor</h3>
+                        <p class="operation-desc">Visualização da ocupação e movimento dos endereços.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">📍 Endereçamento</h3>
+                        <p class="operation-desc">Configuração e gestão dos endereços do armazém.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🗺️ Planta do Armazém</h3>
+                        <p class="operation-desc">Layout visual e organização física do espaço.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🔐 Configurações e Permissões</h3>
+                        <p class="operation-desc">Todas as configurações de acesso e permissões do armazém.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Eletrica Ativa - Sistema WMS E-SHIP | POPs Versão 1.0</p>
+        <p>📧 Suporte: suporte@eletricaativa.com | 📞 (11) 1234-5678</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas as seções
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Ocultar overview se não for ela
+            const overview = document.getElementById('overview');
+            if (sectionId !== 'overview') {
+                overview.style.display = 'none';
+            } else {
+                overview.style.display = 'block';
+            }
+            
+            // Mostrar seção selecionada
+            if (sectionId !== 'overview') {
+                document.getElementById(sectionId).classList.add('active');
+            }
+            
+            // Atualizar links ativos - corrigido para buscar o link correto
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('active');
+                // Verificar se o onclick do link corresponde à seção atual
+                const onclick = link.getAttribute('onclick');
+                if (onclick && onclick.includes(`'${sectionId}'`)) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Fechar menu mobile se aberto
+            document.getElementById('navMenu').classList.remove('active');
+            
+            // Scroll suave para o topo
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+        
+        function searchContent(query) {
+            if (!query) {
+                // Mostrar todos os elementos
+                const allElements = document.querySelectorAll('.processo-card, .operation-card, .step-item');
+                allElements.forEach(el => {
+                    el.style.display = '';
+                });
+                return;
+            }
+            
+            query = query.toLowerCase();
+            
+            // Buscar em todos os elementos de conteúdo
+            const searchElements = document.querySelectorAll('.processo-card, .operation-card, .step-item');
+            
+            searchElements.forEach(element => {
+                const text = element.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    element.style.display = '';
+                    // Destacar termo encontrado (opcional)
+                    element.style.border = '2px solid #2196F3';
+                    setTimeout(() => {
+                        element.style.border = '';
+                    }, 2000);
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+        }
+        
+        // Inicializar mostrando a visão geral
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('overview');
+        });
+        
+        // Scroll suave para navegação
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
