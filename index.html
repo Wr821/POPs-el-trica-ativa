@@ -864,10 +864,10 @@
                             <div class="sub-step">
                                 • Saltar o item e procurar a mesa de operação (separador)<br>
                                 • Mesa de operação: listar a ordem de serviço, retornar<br>
-                                • Procurar o produto e estornar<br>
+                                • Procurar o produto e retornar<br>
                                 • Fazer o ajuste da posição para o saldo correto<br>
                                 • Esperar o sistema atualizar novamente<br>
-                                • Separador sair e entrar na ordem - item volta com saldo corrigido
+                                • Separador abandonar a ordem e entrar na ordem - item volta com saldo corrigido
                             </div>
                         </div>
                     </li>
@@ -1103,12 +1103,132 @@
                     </div>
                 </div>
             </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">📋 Visualização de Ordens de Serviço</h3>
+                <p>Para visualizar ordens de serviços que estão em andamento, ou finalizadas ou com erros, navegar em <strong>ordens → listar ordens</strong>.</p>
+                
+                <div class="highlight">
+                    Irá abrir uma página com dois campos principais para consulta.
+                </div>
+
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">▶️ Listar Ordens em Andamento</h3>
+                        <p class="operation-desc">Lista apenas as ordens de serviços em andamento.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">📜 Listar Ordens (Completo)</h3>
+                        <p class="operation-desc">Lista todas as ordens: em andamento, aguardando expedição, finalizadas e em operação.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">📦 Materiais/Produtos</h3>
+                <p>Em <strong>produtos</strong> temos a opção de <strong>materiais</strong> onde podemos fazer as seguintes alterações:</p>
+                
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">✏️ Alterar Cadastro</h3>
+                        <p class="operation-desc">Informar EAN de produtos não cadastrados, alterar características do item e mais opções de configuração.</p>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>Funcionalidades disponíveis:</strong> Cadastro de EAN, alteração de características e outras configurações de produtos.
+                </div>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">➕ Criar Ordem de Separação Discreta</h3>
+                <p>Para criar uma ordem de separação discreta, seguir os seguintes passos:</p>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Acesso</strong><br>
+                            Campo <strong>listar ordem</strong>, clicar em <strong>adicionar</strong>.
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Configurações Básicas</strong><br>
+                            <div class="sub-step">
+                                • Escolher o <strong>CD</strong><br>
+                                • Escolher o tipo <strong>(liberado CD)</strong>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Definir Origem e Destino</strong><br>
+                            <div class="sub-step">
+                                • Selecionar o <strong>remetente</strong> (a loja de origem)<br>
+                                • Selecionar o <strong>destinatário</strong>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Configurar Transporte</strong><br>
+                            Selecionar transporte (sempre validar com o vendedor a modalidade: transporte próprio ou transportadora).
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-text">
+                            <strong>Observação</strong><br>
+                            Colocar a observação (nome do cliente).
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🔒 Produtos com Saldos Bloqueados para Separação</h3>
+                <p>Para liberar produtos bloqueados para separação:</p>
+                <ol class="step-list">
+                    <li class="step-item">Listar armazém</li>
+                    <li class="step-item">Filtrar o produto</li>
+                    <li class="step-item">Liberar a posição</li>
+                </ol>
+            </div>
+
+            <div class="processo-card">
+                <h3 class="processo-title">🏢 Torre de Controle</h3>
+                <p>No campo armazém temos a torre de controle, onde são exibidos dashboards operacionais:</p>
+                <div class="operation-types">
+                    <div class="operation-card">
+                        <h3 class="operation-title">📍 Endereçamento</h3>
+                        <p class="operation-desc">Dashboard sobre a armazenagem.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">📜 Ordem</h3>
+                        <p class="operation-desc">Dashboard sobre as ordens de serviço.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">⚙️ Operação</h3>
+                        <p class="operation-desc">Dashboard sobre erros operacionais.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">🏢 Armazém</h3>
+                        <p class="operation-desc">Dashboard geral do armazém.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">📦 Inventário</h3>
+                        <p class="operation-desc">Dashboard sobre inventário.</p>
+                    </div>
+                    <div class="operation-card">
+                        <h3 class="operation-title">📊 Consolidado</h3>
+                        <p class="operation-desc">Dashboard consolidado de todas as operações.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 
     <footer class="footer">
         <p>&copy; 2025 Eletrica Ativa - Sistema WMS E-SHIP | POPs Versão 1.0</p>
-        <p>📧 Suporte: suporte@eletricaativa.com | 📞 (11) 1234-5678</p>
     </footer>
 
     <script>
@@ -1202,5 +1322,4 @@
     </script>
     <script src="assets/script.js"></script>
 </body>
-
 </html>
